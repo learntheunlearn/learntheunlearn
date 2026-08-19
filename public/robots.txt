@@ -1,0 +1,28 @@
+# robots.txt for LEARNTHEUNLEARN (https://learntheunlearn.com)
+
+# Allow all web search engine crawlers
+User-agent: *
+Allow: /
+
+# Explicitly allow AI Answer Engine Bots (AEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap & LLM Knowledge File
+Sitemap: https://learntheunlearn.com/sitemap.xml
+# LLMs Context File: https://learntheunlearn.com/llms.txt

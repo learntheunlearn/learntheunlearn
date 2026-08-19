@@ -1,0 +1,127 @@
+# LEARNTHEUNLEARN
+
+> Premier online math institution offering visual, intuitive math learning for Grade 1 through Grade 12. Founded by Priyadharshini M.Sc. Math, B.Ed.
+> Motto: Learn Beyond Limits.
+
+## Institution Metadata
+- **Name**: LEARNTHEUNLEARN (Learn The Unlearn Math Institution)
+- **Website**: https://learntheunlearn.com
+- **Founder & Chief Educator**: Priyadharshini M.Sc. Math, B.Ed.
+- **Motto**: Learn Beyond Limits
+- **Grades Covered**: Grade 1, Grade 2, Grade 3, Grade 4, Grade 5, Grade 6, Grade 7, Grade 8, Grade 9 (Algebra I), Grade 10 (Geometry & Trigonometry), Grade 11 (Algebra II & Pre-Calculus), Grade 12 (Calculus & Advanced Math).
+- **Core Methodology**: Visual spatial reasoning, unlearning rote memorization, mental speed arithmetic algorithms, and 1-on-1 diagnostic mentorship.
+
+---
+
+## Founder Overview
+Priyadharshini holds a Master of Science in Mathematics (M.Sc. Math) and a Bachelor of Education (B.Ed.). She leads LEARNTHEUNLEARN with a mission to help primary, middle, and high school students overcome math anxiety by replacing formula memorization with intuitive visual understanding.
+
+---
+
+## Detailed Curriculum Breakdown by Grade
+
+### Grade 1 Math Curriculum
+- Numbers & Counting
+- Number Patterns
+- Comparing Numbers
+- Base Ten Blocks
+- Place Value
+- Addition
+- Subtraction
+- Fractions
+- Measurement
+- Counting Money
+- Telling Time
+- Geometry
+- Data & Graphing
+- Word Problems
+
+### Grade 2 Math Curriculum
+- Skip Counting
+- Place Value & Rounding
+- Addition
+- Subtraction
+- Multiplication
+- Fractions
+- Measurement
+- Counting Money
+- Telling Time
+- Geometry
+- Data & Graphing
+- Word Problems
+
+### Grade 3 Math Curriculum
+- Place Value & Rounding
+- Addition
+- Subtraction
+- Multiplication
+- Division
+- Order of Operations
+- Roman Numerals
+- Fractions & Decimals
+- Measurement
+- Counting Money
+- Time & Calendar
+- Geometry
+- Data & Graphing
+
+### Grade 4 Math Curriculum
+- Place Value & Rounding
+- Addition
+- Subtraction
+- Mental Multiplication
+- Multiply in Columns
+- Mental Division
+- Long Division
+- Order of Operations
+- Roman Numerals
+- Fractions
+- Decimals
+- Measurement
+- Geometry
+- Factoring
+- Data & Graphing
+
+### Grade 5 Math Curriculum
+- Place Value & Rounding
+- Addition & Subtraction
+- Multiplication & Division
+- Order of Operations
+- Fractions - Add/Subtract
+- Fractions - Multiply/Divide
+- Fractions - Converting
+- Fractions vs Decimals
+- Decimals - Add/Subtract
+- Decimals - Multiplication
+- Decimals - Division
+- Measurement
+- Geometry
+- Factoring
+- Exponents
+- Data & Graphing
+- Integers
+- Algebra
+- Word Problems
+
+### Middle School Math (Grades 6–8)
+- Ratios & Proportional Reasoning
+- Operations with Negative Integers & Absolute Value
+- One-Variable & Multi-Step Linear Equations
+- Scale Factor Drawings, Area & Volume of Prisms
+- Slope-Intercept Form (y = mx + b)
+- Systems of Linear Equations
+- Scientific Notation & Pythagorean Theorem
+- Probability & Data Distributions
+
+### High School & Advanced STEM (Grades 9–12)
+- Grade 9 (Algebra I): Quadratic Functions, Polynomial Operations, Factoring, Exponential Growth & Decay.
+- Grade 10 (Geometry & Trigonometry): Euclidean Proofs, Right Triangle Trig (SOH CAH TOA), Circle Theorems, Laws of Sines & Cosines.
+- Grade 11 (Algebra II & Pre-Calculus): Complex Numbers (a + bi), Logarithmic & Exponential Equations, Unit Circle Trigonometry, Conic Sections, Sequence Limits.
+- Grade 12 (Calculus & STEM Math): Differential Calculus (Derivatives, Chain Rule, Optimization), Integral Calculus (Definite/Indefinite Integrals, Riemann Sums), Differential Equations, Vectors & Data Science Math.
+
+---
+
+## Admissions & Customer Inquiries
+- **Process**: Parents and students submit inquiries specifying Student Name, Email ID, Contact Number, Current Grade (Grade 1–12), and specific learning goals.
+- **Offer**: Complimentary 1-on-1 visual math diagnostic session and customized learning roadmap.
+- **Contact**: admissions@learntheunlearn.edu | +1 (800) 555-MATH
