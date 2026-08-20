@@ -391,36 +391,49 @@ const UK_GRADE_TOPICS = {
   ]
 };
 
-// Export raw curriculum data
 export const CURRICULUM_DATA = {
-  US: Array.from({ length: 12 }, (_, i) => {
-    const gradeNum = i + 1;
-    const topics = US_GRADE_TOPICS[gradeNum] || [];
-    const moduleCount = topics.length || 14;
-    const modules = Array.from({ length: moduleCount }, (_, mIdx) => {
-      const topic = topics[mIdx] || { title: `US Grade ${gradeNum} Core Topic ${mIdx + 1}`, desc: "Essential mathematical concept." };
-      const paddedNum = (mIdx + 1).toString().padStart(2, '0');
+  US: [
+    ...Array.from({ length: 12 }, (_, i) => {
+      const gradeNum = i + 1;
+      const topics = US_GRADE_TOPICS[gradeNum] || [];
+      const moduleCount = topics.length || 14;
+      
+      let label = `Grade ${gradeNum}`;
+      if (gradeNum === 9) label = "Algebra 1";
+      else if (gradeNum === 10) label = "Geometry";
+      else if (gradeNum === 11) label = "Algebra 2";
+      else if (gradeNum === 12) label = "Precalculus";
+
+      const modules = Array.from({ length: moduleCount }, (_, mIdx) => {
+        const topic = topics[mIdx] || { title: `US Grade ${gradeNum} Core Topic ${mIdx + 1}`, desc: "Essential mathematical concept." };
+        const paddedNum = (mIdx + 1).toString().padStart(2, '0');
+        return {
+          moduleNumber: paddedNum,
+          title: topic.title,
+          description: topic.desc,
+          learningOutcomes: [
+            `Develop visual intuition for ${topic.title}`,
+            "Solve speed-math problems with shortcut methods",
+            "Apply mathematical reasoning to solve multi-step problems"
+          ],
+          topics: [
+            "Interactive exercises & visual proofs",
+            "Mental math shortcuts & reasoning",
+            "Comprehensive review & practice"
+          ]
+        };
+      });
       return {
-        moduleNumber: paddedNum,
-        title: topic.title,
-        description: topic.desc,
-        learningOutcomes: [
-          `Develop visual intuition for ${topic.title}`,
-          "Solve speed-math problems with shortcut methods",
-          "Apply mathematical reasoning to solve multi-step problems"
-        ],
-        topics: [
-          "Interactive exercises & visual proofs",
-          "Mental math shortcuts & reasoning",
-          "Comprehensive review & practice"
-        ]
+        id: gradeNum.toString(),
+        label,
+        modules
       };
-    });
-    return {
-      grade: gradeNum,
-      modules
-    };
-  }),
+    }),
+    { id: "statistics", label: "Statistics", modules: [] },
+    { id: "calculus", label: "Calculus", modules: [] },
+    { id: "psat", label: "PSAT", modules: [] },
+    { id: "sat", label: "SAT", modules: [] }
+  ],
   UK: Array.from({ length: 12 }, (_, i) => {
     const gradeNum = i + 1;
     const topics = UK_GRADE_TOPICS[gradeNum] || [];
@@ -445,7 +458,8 @@ export const CURRICULUM_DATA = {
       };
     });
     return {
-      grade: gradeNum,
+      id: gradeNum.toString(),
+      label: `Grade ${gradeNum}`,
       modules
     };
   })

@@ -31,14 +31,14 @@ const getRoute = (hash) => {
     return { type: 'curriculum', curriculumType: 'UK' };
   }
   
-  const usGradeMatch = hash.match(/^#\/curriculum\/us\/grade\/(\d+)$/);
+  const usGradeMatch = hash.match(/^#\/curriculum\/us\/grade\/([^/]+)$/);
   if (usGradeMatch) {
-    return { type: 'syllabus', curriculumType: 'US', grade: parseInt(usGradeMatch[1], 10) };
+    return { type: 'syllabus', curriculumType: 'US', grade: usGradeMatch[1] };
   }
 
-  const ukGradeMatch = hash.match(/^#\/curriculum\/uk\/grade\/(\d+)$/);
+  const ukGradeMatch = hash.match(/^#\/curriculum\/uk\/grade\/([^/]+)$/);
   if (ukGradeMatch) {
-    return { type: 'syllabus', curriculumType: 'UK', grade: parseInt(ukGradeMatch[1], 10) };
+    return { type: 'syllabus', curriculumType: 'UK', grade: ukGradeMatch[1] };
   }
 
   return { type: 'home', section: 'hero' };

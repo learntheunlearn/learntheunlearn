@@ -6,15 +6,11 @@ import { CURRICULUM_DATA } from '../data/curriculumData';
 export default function SyllabusPage({ type, gradeNum }) {
   const typeKey = type.toUpperCase();
   const curriculum = CURRICULUM_DATA[typeKey] || [];
-  const gradeData = curriculum.find((g) => g.grade === gradeNum);
+  const gradeData = curriculum.find((g) => g.id.toString() === (gradeNum || '').toString());
   const modules = gradeData ? gradeData.modules : [];
 
   const curriculumLabel = typeKey === 'US' ? 'US Curriculum' : 'UK Curriculum';
-  let gradeLabel = `Grade ${gradeNum}`;
-  if (gradeNum === 9) gradeLabel = "Algebra 1";
-  else if (gradeNum === 10) gradeLabel = "Geometry";
-  else if (gradeNum === 11) gradeLabel = "Algebra 2";
-  else if (gradeNum === 12) gradeLabel = "Precalculus";
+  const gradeLabel = gradeData ? gradeData.label : `Grade ${gradeNum}`;
 
   const handleBackClick = (e) => {
     e.preventDefault();
@@ -58,36 +54,46 @@ export default function SyllabusPage({ type, gradeNum }) {
         </div>
 
         {/* Modules Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {modules.map((mod) => (
-            <div
-              key={mod.moduleNumber}
-              className="bg-white rounded-2xl border border-purple-100/70 p-5 shadow-sm hover:shadow-md hover:border-purple-300/80 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between relative overflow-hidden group"
-            >
-              {/* Subtle top decorative border on hover */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-250 origin-left" />
+        {modules.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {modules.map((mod) => (
+              <div
+                key={mod.moduleNumber}
+                className="bg-white rounded-2xl border border-purple-100/70 p-5 shadow-sm hover:shadow-md hover:border-purple-300/80 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between relative overflow-hidden group"
+              >
+                {/* Subtle top decorative border on hover */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-250 origin-left" />
 
-              <div>
-                <div className="flex items-center justify-between mb-3.5">
-                  {/* Module Number badge */}
-                  <span className="inline-block px-2.5 py-0.5 rounded-lg bg-purple-50 border border-purple-100 text-purple-800 text-[10px] font-black uppercase tracking-wider">
-                    Module {mod.moduleNumber}
-                  </span>
+                <div>
+                  <div className="flex items-center justify-between mb-3.5">
+                    {/* Module Number badge */}
+                    <span className="inline-block px-2.5 py-0.5 rounded-lg bg-purple-50 border border-purple-100 text-purple-800 text-[10px] font-black uppercase tracking-wider">
+                      Module {mod.moduleNumber}
+                    </span>
+                  </div>
+                  
+                  {/* Title */}
+                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-snug group-hover:text-purple-900 transition-colors">
+                    {mod.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {mod.description}
+                  </p>
                 </div>
-                
-                {/* Title */}
-                <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-snug group-hover:text-purple-900 transition-colors">
-                  {mod.title}
-                </h3>
-                
-                {/* Description */}
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  {mod.description}
-                </p>
               </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white rounded-3xl border border-purple-100/80 p-12 text-center max-w-xl mx-auto shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-6 h-6 text-purple-700" />
             </div>
-          ))}
-        </div>
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Modules Coming Soon</h3>
+            <p className="text-xs text-slate-500">The detailed curriculum modules for {gradeLabel} will be updated soon.</p>
+          </div>
+        )}
 
       </div>
     </div>
