@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HomeSection from './components/HomeSection';
 import AboutUs from './components/AboutUs';
+import InquiryForm from './components/InquiryForm';
 import Footer from './components/Footer';
 import CurriculumPage from './components/CurriculumPage';
 import SyllabusPage from './components/SyllabusPage';
@@ -14,6 +15,9 @@ const getRoute = (hash) => {
   }
   if (hash === '#/about-us' || hash === '#about-us') {
     return { type: 'about-us' };
+  }
+  if (hash === '#/contact-us' || hash === '#contact-us' || hash === '#inquiry-form') {
+    return { type: 'contact-us' };
   }
   if (hash === '#/curriculum/us') {
     return { type: 'curriculum', curriculumType: 'US' };
@@ -101,6 +105,12 @@ export default function App() {
 
         {route.type === 'about-us' && (
           <AboutUs />
+        )}
+
+        {route.type === 'contact-us' && (
+          <div className="pt-20 min-h-screen bg-slate-50">
+            <InquiryForm />
+          </div>
         )}
 
         {route.type === 'curriculum' && (

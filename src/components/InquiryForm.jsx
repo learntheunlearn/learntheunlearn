@@ -157,11 +157,8 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
               <div className="mb-8 flex items-center justify-between">
                 <div>
                   <h3 className="text-2xl font-black text-purple-950 flex items-center gap-2">
-                    <span>Customer Admission Inquiry Form</span>
+                    <span>Book Free Trial Class</span>
                   </h3>
-                  <p className="text-xs text-slate-600 mt-1">
-                    Select student's grade and details. Our lead advisor will contact you within 2 hours.
-                  </p>
                 </div>
                 <div className="w-10 h-10 rounded-xl bg-[#51247A] p-1 shadow-sm shrink-0">
                   <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
@@ -255,16 +252,29 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                         value={formData.grade}
                         onChange={(e) => {
                           setFormData({ ...formData, grade: e.target.value });
-                          if (onGradeChanged) {
-                            const num = parseInt(e.target.value.replace(/\D/g, ''), 10);
-                            if (num) onGradeChanged(num);
-                          }
                         }}
                         className="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-purple-600 appearance-none cursor-pointer font-bold"
                       >
-                        {Array.from({ length: 12 }, (_, i) => `Grade ${i + 1}`).map((g) => (
+                        {[
+                          'Grade 1 Math Syllabus',
+                          'Grade 2 Math Syllabus',
+                          'Grade 3 Math Syllabus',
+                          'Grade 4 Math Syllabus',
+                          'Grade 5 Math Syllabus',
+                          'Grade 6 Math Syllabus',
+                          'Grade 7 Math Syllabus',
+                          'Grade 8 Math Syllabus',
+                          'Algebra 1 Math Syllabus',
+                          'Geometry Math Syllabus',
+                          'Algebra 2 Math Syllabus',
+                          'Precalculus Math Syllabus',
+                          'Statistics Math Syllabus',
+                          'Calculus Math Syllabus',
+                          'PSAT Math Syllabus',
+                          'SAT Math Syllabus'
+                        ].map((g) => (
                           <option key={g} value={g}>
-                            {g} Math Syllabus
+                            {g}
                           </option>
                         ))}
                       </select>

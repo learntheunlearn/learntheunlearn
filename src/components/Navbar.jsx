@@ -22,7 +22,9 @@ export default function Navbar() {
       window.location.hash = '#/';
     } else if (target === 'about-us') {
       window.location.hash = '#/about-us';
-    } else if (target === 'reviews' || target === 'inquiry-form') {
+    } else if (target === 'inquiry-form') {
+      window.location.hash = '#/contact-us';
+    } else if (target === 'reviews') {
       window.location.hash = `#${target}`;
     }
   };
