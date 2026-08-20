@@ -7,7 +7,7 @@ export default function CurriculumPage({ type }) {
   const typeKey = type.toUpperCase();
   const title = typeKey === 'US' ? 'US Curriculum' : 'UK Curriculum';
   const subtitle = typeKey === 'US' 
-    ? 'Grade 1 through High School mathematics standards, optimized for conceptual understanding and speed.'
+    ? 'Complete mathematics learning from Grade 1 to Grade 12, aligned with U.S. educational standards. Build strong concepts, problem-solving skills, and confidence at every grade level.'
     : 'Grade 1 through Grade 12 British National Curriculum and Key Stage math pathways, focused on deep mastery.';
 
   const curriculumItems = CURRICULUM_DATA[typeKey] || [];
