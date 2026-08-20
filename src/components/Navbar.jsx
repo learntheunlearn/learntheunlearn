@@ -18,23 +18,12 @@ export default function Navbar() {
 
   const handleNavClick = (target) => {
     setMobileMenuOpen(false);
-    if (target === 'hero' || target === 'about-us' || target === 'reviews' || target === 'inquiry-form') {
-      const targetHash = target === 'hero' ? '#/' : `#${target}`;
-      // Check if we are already on home page
-      const currentHash = window.location.hash;
-      const isHome = !currentHash || currentHash === '#/' || currentHash.startsWith('#hero') || currentHash === '#about-us' || currentHash === '#reviews' || currentHash === '#inquiry-form';
-      
-      if (isHome) {
-        // Already on home, change hash to scroll
-        window.location.hash = targetHash;
-        const element = document.getElementById(target);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        // Navigate to home with target hash
-        window.location.hash = targetHash;
-      }
+    if (target === 'hero') {
+      window.location.hash = '#/';
+    } else if (target === 'about-us') {
+      window.location.hash = '#/about-us';
+    } else if (target === 'reviews' || target === 'inquiry-form') {
+      window.location.hash = `#${target}`;
     }
   };
 

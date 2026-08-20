@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HomeSection from './components/HomeSection';
+import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import CurriculumPage from './components/CurriculumPage';
 import SyllabusPage from './components/SyllabusPage';
@@ -10,6 +11,9 @@ import { getEducationalOrgSchema, getCourseSchemas, getFaqSchema } from './utils
 const getRoute = (hash) => {
   if (!hash || hash === '#/' || hash.startsWith('#hero') || hash === '#' || hash === '#welcome') {
     return { type: 'home', section: 'welcome' };
+  }
+  if (hash === '#/about-us' || hash === '#about-us') {
+    return { type: 'about-us' };
   }
   if (hash === '#/curriculum/us') {
     return { type: 'curriculum', curriculumType: 'US' };
@@ -93,6 +97,10 @@ export default function App() {
       <main>
         {route.type === 'home' && (
           <HomeSection />
+        )}
+
+        {route.type === 'about-us' && (
+          <AboutUs />
         )}
 
         {route.type === 'curriculum' && (
