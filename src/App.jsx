@@ -2,21 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import WhyUnlearn from './components/WhyUnlearn';
-import FounderBioSection from './components/FounderBioSection';
 import SyllabusExplorer from './components/SyllabusExplorer';
-import MathSandbox from './components/MathSandbox';
 import InquiryForm from './components/InquiryForm';
 import Testimonials from './components/Testimonials';
-import AeoFaqSection from './components/AeoFaqSection';
-import SeoAuditModal from './components/SeoAuditModal';
 import Footer from './components/Footer';
 import { getEducationalOrgSchema, getCourseSchemas, getFaqSchema } from './utils/seoSchema';
 
 export default function App() {
   const [activeGrade, setActiveGrade] = useState(1);
   const [inquiryGrade, setInquiryGrade] = useState(null);
-  const [seoModalOpen, setSeoModalOpen] = useState(false);
 
   // Inject JSON-LD Schemas into DOM head
   useEffect(() => {
@@ -70,65 +64,37 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-purple-600 selection:text-white font-['Plus_Jakarta_Sans',sans-serif]">
       {/* Sticky Header */}
-      <Navbar
-        onOpenSeoModal={() => setSeoModalOpen(true)}
-        onSelectGradeInquiry={handleSelectGradeForInquiry}
-      />
+      <Navbar />
 
       <main>
-        {/* Hero Section */}
+        {/* Hero Section (Home) */}
         <HeroSection
           onExploreClick={handleExploreSyllabus}
           onEnquireClick={() => handleSelectGradeForInquiry(activeGrade)}
         />
 
-        {/* Founder & Lead Educator Personal Bio */}
-        <FounderBioSection
-          onEnquireClick={() => handleSelectGradeForInquiry(activeGrade)}
-        />
-
-        {/* Why Unlearn Philosophy */}
-        <WhyUnlearn
-          onEnquireClick={() => handleSelectGradeForInquiry(activeGrade)}
-        />
-
-        {/* Grade 1 to 12 Syllabus Explorer */}
+        {/* Grade 1 to 12 Syllabus Explorer (Curriculum) */}
         <SyllabusExplorer
           activeGrade={activeGrade}
           setActiveGrade={setActiveGrade}
           onSelectGradeForInquiry={handleSelectGradeForInquiry}
         />
 
-        {/* Brilliant.org Inspired Interactive Math Sandbox */}
-        <MathSandbox />
-
-        {/* Customer Inquiry Form */}
-        <InquiryForm
-          preselectedGrade={inquiryGrade}
-          onGradeChanged={(g) => setActiveGrade(g)}
-        />
-
-        {/* Bhanzu Inspired Social Proof & Parent Reviews */}
+        {/* Feedback & Reviews */}
         <Testimonials
           onEnquireClick={() => handleSelectGradeForInquiry(activeGrade)}
         />
 
-        {/* AEO FAQ Section */}
-        <AeoFaqSection
-          onOpenSeoModal={() => setSeoModalOpen(true)}
+        {/* Contact Us - Inquiry Form */}
+        <InquiryForm
+          preselectedGrade={inquiryGrade}
+          onGradeChanged={(g) => setActiveGrade(g)}
         />
       </main>
 
       {/* Footer */}
       <Footer
         onSelectGradeInquiry={handleSelectGradeForInquiry}
-        onOpenSeoModal={() => setSeoModalOpen(true)}
-      />
-
-      {/* Technical SEO & AEO Schema Inspector Modal */}
-      <SeoAuditModal
-        isOpen={seoModalOpen}
-        onClose={() => setSeoModalOpen(false)}
       />
     </div>
   );

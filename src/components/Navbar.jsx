@@ -1,11 +1,10 @@
 // src/components/Navbar.jsx
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Calculator, HelpCircle, UserCheck, Menu, X, ChevronDown, Award } from 'lucide-react';
+import { Sparkles, Menu, X } from 'lucide-react';
 
-export default function Navbar({ onOpenSeoModal, onSelectGradeInquiry }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [gradeDropdownOpen, setGradeDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,18 +16,18 @@ export default function Navbar({ onOpenSeoModal, onSelectGradeInquiry }) {
 
   const scrollToSection = (id) => {
     setMobileMenuOpen(false);
-    setGradeDropdownOpen(false);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const handleGradeSelect = (gradeNum) => {
-    setGradeDropdownOpen(false);
-    setMobileMenuOpen(false);
-    onSelectGradeInquiry(gradeNum);
-  };
+  const navLinks = [
+    { label: 'Home', target: 'hero' },
+    { label: 'Curriculum', target: 'syllabus-explorer' },
+    { label: 'Feedback & Review', target: 'reviews' },
+    { label: 'Contact Us', target: 'inquiry-form' },
+  ];
 
   return (
     <header
@@ -65,72 +64,15 @@ export default function Navbar({ onOpenSeoModal, onSelectGradeInquiry }) {
 
           {/* Desktop Nav Links */}
           <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-purple-100">
-            <button
-              onClick={() => scrollToSection('why-unlearn')}
-              className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-purple-900 transition-colors rounded-full hover:bg-white"
-            >
-              Why Unlearn?
-            </button>
-
-            <button
-              onClick={() => scrollToSection('founder-bio')}
-              className="px-4 py-2 text-xs font-bold text-purple-800 hover:text-purple-950 transition-colors rounded-full hover:bg-white flex items-center gap-1.5"
-            >
-              <UserCheck className="w-3.5 h-3.5 text-purple-600" />
-              <span>Founder Bio</span>
-            </button>
-            
-            {/* Grade Jump Dropdown */}
-            <div className="relative">
+            {navLinks.map((link) => (
               <button
-                onClick={() => setGradeDropdownOpen(!gradeDropdownOpen)}
-                className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-purple-900 transition-colors rounded-full hover:bg-white flex items-center gap-1.5"
+                key={link.target}
+                onClick={() => scrollToSection(link.target)}
+                className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-purple-900 transition-colors rounded-full hover:bg-white"
               >
-                <span>Syllabus (Grade 1-12)</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${gradeDropdownOpen ? 'rotate-180' : ''}`} />
+                {link.label}
               </button>
-
-              {gradeDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-2xl p-3 shadow-xl border border-purple-100 grid grid-cols-2 gap-1.5 z-50">
-                  <div className="col-span-2 text-[10px] font-bold uppercase tracking-wider text-purple-700 px-2 py-1">
-                    Select Student Grade
-                  </div>
-                  {Array.from({ length: 12 }, (_, i) => i + 1).map((num) => (
-                    <button
-                      key={num}
-                      onClick={() => handleGradeSelect(num)}
-                      className="text-left px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-purple-50 hover:text-purple-900 rounded-lg transition-colors flex items-center justify-between"
-                    >
-                      <span>Grade {num}</span>
-                      <span className="text-[10px] text-purple-500 font-bold">View</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={() => scrollToSection('math-sandbox')}
-              className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-purple-900 transition-colors rounded-full hover:bg-white flex items-center gap-1.5"
-            >
-              <Calculator className="w-3.5 h-3.5 text-amber-500" />
-              <span>Visual Playground</span>
-            </button>
-
-            <button
-              onClick={() => scrollToSection('reviews')}
-              className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-purple-900 transition-colors rounded-full hover:bg-white"
-            >
-              Parents & Results
-            </button>
-
-            <button
-              onClick={() => scrollToSection('aeo-faq')}
-              className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-purple-900 transition-colors rounded-full hover:bg-white flex items-center gap-1"
-            >
-              <HelpCircle className="w-3.5 h-3.5 text-purple-600" />
-              <span>AEO FAQ</span>
-            </button>
+            ))}
           </nav>
 
           {/* Action CTAs */}
@@ -166,43 +108,15 @@ export default function Navbar({ onOpenSeoModal, onSelectGradeInquiry }) {
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white mt-2 mx-4 p-4 rounded-2xl border border-purple-100 shadow-xl flex flex-col gap-2.5">
-          <button
-            onClick={() => scrollToSection('founder-bio')}
-            className="text-left py-2 px-3 text-sm font-bold text-purple-900 hover:bg-purple-50 rounded-lg flex items-center gap-2"
-          >
-            <UserCheck className="w-4 h-4 text-purple-600" />
-            <span>Founder Bio (Priyadharshini M.Sc. Math, B.Ed.)</span>
-          </button>
-          <button
-            onClick={() => scrollToSection('why-unlearn')}
-            className="text-left py-2 px-3 text-sm font-medium text-slate-700 hover:bg-purple-50 rounded-lg"
-          >
-            Why Unlearn?
-          </button>
-          <button
-            onClick={() => scrollToSection('syllabus-explorer')}
-            className="text-left py-2 px-3 text-sm font-medium text-slate-700 hover:bg-purple-50 rounded-lg"
-          >
-            Grade 1-12 Syllabus
-          </button>
-          <button
-            onClick={() => scrollToSection('math-sandbox')}
-            className="text-left py-2 px-3 text-sm font-medium text-slate-700 hover:bg-purple-50 rounded-lg"
-          >
-            Interactive Playground
-          </button>
-          <button
-            onClick={() => scrollToSection('reviews')}
-            className="text-left py-2 px-3 text-sm font-medium text-slate-700 hover:bg-purple-50 rounded-lg"
-          >
-            Parent Reviews
-          </button>
-          <button
-            onClick={() => scrollToSection('aeo-faq')}
-            className="text-left py-2 px-3 text-sm font-medium text-slate-700 hover:bg-purple-50 rounded-lg"
-          >
-            AEO FAQ
-          </button>
+          {navLinks.map((link) => (
+            <button
+              key={link.target}
+              onClick={() => scrollToSection(link.target)}
+              className="text-left py-2 px-3 text-sm font-medium text-slate-700 hover:bg-purple-50 rounded-lg"
+            >
+              {link.label}
+            </button>
+          ))}
 
           <div className="border-t border-slate-100 pt-3 flex flex-col gap-2">
             <button

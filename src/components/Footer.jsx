@@ -2,7 +2,7 @@
 import React from 'react';
 import { ArrowUp, Mail, Phone, MapPin, ShieldCheck, GraduationCap } from 'lucide-react';
 
-export default function Footer({ onSelectGradeInquiry, onOpenSeoModal }) {
+export default function Footer({ onSelectGradeInquiry }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -96,14 +96,7 @@ export default function Footer({ onSelectGradeInquiry, onOpenSeoModal }) {
               </li>
             </ul>
 
-            <div className="mt-4">
-              <button
-                onClick={onOpenSeoModal}
-                className="text-xs text-purple-400 hover:text-purple-300 underline font-semibold"
-              >
-                Inspect AI Search JSON-LD Schemas
-              </button>
-            </div>
+
           </div>
 
         </div>
@@ -112,8 +105,8 @@ export default function Footer({ onSelectGradeInquiry, onOpenSeoModal }) {
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
           <p>© {new Date().getFullYear()} LEARNTHEUNLEARN. Founded by Priyadharshini M.Sc. Math, B.Ed.</p>
           <div className="flex items-center gap-4">
-            <a href="#founder-bio" className="hover:text-slate-300">Founder Bio</a>
-            <a href="#aeo-faq" className="hover:text-slate-300">AEO FAQ</a>
+            <a href="#syllabus-explorer" className="hover:text-slate-300">Curriculum</a>
+            <a href="#reviews" className="hover:text-slate-300">Reviews</a>
             <button
               onClick={scrollToTop}
               className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors border border-slate-700 flex items-center gap-1"
