@@ -33,7 +33,7 @@ export default function Navbar() {
     { label: 'Home', target: 'hero' },
     { label: 'About Us', target: 'about-us' },
     { label: 'Curriculum', target: 'curriculum' },
-    { label: 'Feedback & Review', target: 'reviews' },
+    { label: 'Testimonial', target: 'reviews' },
     { label: 'Contact Us', target: 'inquiry-form' },
   ];
 
