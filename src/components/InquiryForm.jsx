@@ -1,6 +1,25 @@
 // src/components/InquiryForm.jsx
-import React, { useState, useEffect } from 'react';
-import { Send, CheckCircle2, User, Mail, Phone, GraduationCap, MessageSquare, Sparkles, ShieldCheck, Download, AlertCircle, Award } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Send, CheckCircle2, User, Mail, Phone, GraduationCap, MessageSquare, Sparkles, ShieldCheck, Download, AlertCircle, Award, ChevronDown } from 'lucide-react';
+
+const GRADE_OPTIONS = [
+  'Grade 1',
+  'Grade 2',
+  'Grade 3',
+  'Grade 4',
+  'Grade 5',
+  'Grade 6',
+  'Grade 7',
+  'Grade 8',
+  'Algebra 1',
+  'Geometry',
+  'Algebra 2',
+  'Precalculus',
+  'Statistics',
+  'Calculus',
+  'PSAT',
+  'SAT'
+];
 
 export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
   const [formData, setFormData] = useState({
@@ -12,16 +31,31 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
     details: '',
   });
 
+  const [gradeDropdownOpen, setGradeDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
   const [inquiryHistory, setInquiryHistory] = useState([]);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setGradeDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
   useEffect(() => {
     if (preselectedGrade) {
+      const match = GRADE_OPTIONS.find((g) => g.toLowerCase() === `grade ${preselectedGrade}`.toLowerCase() || g.toLowerCase() === `${preselectedGrade}`.toLowerCase());
       setFormData((prev) => ({
         ...prev,
-        grade: `Grade ${preselectedGrade}`,
+        grade: match || `Grade ${preselectedGrade}`,
       }));
     }
   }, [preselectedGrade]);
@@ -96,13 +130,14 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
+    downloadAnchor.remove();
   };
 
   return (
-    <section id="inquiry-form" className="py-20 relative bg-gradient-to-b from-purple-50/40 via-white to-slate-50 border-t border-b border-purple-100">
+    <section id="inquiry-form" className="py-20 pb-36 relative bg-gradient-to-b from-purple-50/40 via-white to-slate-50 border-t border-b border-purple-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column */}
           <div className="lg:col-span-5 flex flex-col gap-6">
@@ -115,8 +150,8 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
               Start Your Child’s Math Transformation Today
             </h2>
 
-            <p className="text-slate-700 text-base leading-relaxed">
-              Book a complimentary 1-on-1 visual math diagnostic session for <strong className="text-purple-950 font-black">Grade 1 to Grade 12</strong> guided by <strong className="text-purple-900 font-bold">Priyadharshini M.Sc. Math, B.Ed.</strong>
+            <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+              Book a complimentary 1-on-1 visual math diagnostic session.
             </p>
 
             <div className="space-y-4 pt-2">
@@ -132,7 +167,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                 <Award className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-extrabold text-purple-950">Learn Beyond Limits Roadmap</h4>
-                  <p className="text-xs text-slate-600">Customized learning plan aligning with CBSE, ICSE, IB, and Common Core.</p>
+                  <p className="text-xs text-slate-600">Customized learning plan aligning with US, UK, and International standards.</p>
                 </div>
               </div>
             </div>
@@ -176,7 +211,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                     <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
-                      placeholder="e.g. Rajesh Kumar"
+                      placeholder="e.g. John Doe"
                       value={formData.parentName}
                       onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
                       className={`w-full pl-10 pr-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors ${
@@ -224,7 +259,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                       <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="tel"
-                        placeholder="+91 98765 43210"
+                        placeholder="+1 461 555-5679"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className={`w-full pl-10 pr-4 py-3 bg-slate-50 border rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-colors ${
@@ -242,43 +277,54 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
 
                 {/* Grade Selector & Time */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
+                  
+                  {/* Student Grade Custom Downward-Opening Dropdown */}
+                  <div className="relative" ref={dropdownRef}>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
                       Student's Current Grade <span className="text-amber-600">*</span>
                     </label>
-                    <div className="relative">
-                      <GraduationCap className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <select
-                        value={formData.grade}
-                        onChange={(e) => {
-                          setFormData({ ...formData, grade: e.target.value });
-                        }}
-                        className="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-purple-600 appearance-none cursor-pointer font-bold"
-                      >
-                        {[
-                          'Grade 1 Math Syllabus',
-                          'Grade 2 Math Syllabus',
-                          'Grade 3 Math Syllabus',
-                          'Grade 4 Math Syllabus',
-                          'Grade 5 Math Syllabus',
-                          'Grade 6 Math Syllabus',
-                          'Grade 7 Math Syllabus',
-                          'Grade 8 Math Syllabus',
-                          'Algebra 1 Math Syllabus',
-                          'Geometry Math Syllabus',
-                          'Algebra 2 Math Syllabus',
-                          'Precalculus Math Syllabus',
-                          'Statistics Math Syllabus',
-                          'Calculus Math Syllabus',
-                          'PSAT Math Syllabus',
-                          'SAT Math Syllabus'
-                        ].map((g) => (
-                          <option key={g} value={g}>
-                            {g}
-                          </option>
+                    
+                    <button
+                      type="button"
+                      onClick={() => setGradeDropdownOpen(!gradeDropdownOpen)}
+                      className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-purple-600 flex items-center justify-between text-left font-bold transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2">
+                        <GraduationCap className="w-4 h-4 text-slate-400 shrink-0" />
+                        <span>{formData.grade}</span>
+                      </div>
+                      <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${gradeDropdownOpen ? 'rotate-180 text-purple-700' : ''}`} />
+                    </button>
+
+                    {/* Guaranteed Downward Menu */}
+                    {gradeDropdownOpen && (
+                      <div className="absolute top-full left-0 right-0 z-50 mt-1.5 bg-white border border-purple-100 rounded-2xl shadow-2xl max-h-60 overflow-y-auto py-2">
+                        {GRADE_OPTIONS.map((g) => (
+                          <button
+                            key={g}
+                            type="button"
+                            onClick={() => {
+                              setFormData({ ...formData, grade: g });
+                              setGradeDropdownOpen(false);
+                              if (onGradeChanged) {
+                                const num = parseInt(g.replace(/\D/g, ''), 10);
+                                if (num) onGradeChanged(num);
+                              }
+                            }}
+                            className={`w-full text-left px-4 py-2.5 text-sm font-semibold transition-colors flex items-center justify-between ${
+                              formData.grade === g 
+                                ? 'bg-purple-50 text-purple-950 font-black' 
+                                : 'text-slate-700 hover:bg-slate-50 hover:text-purple-900'
+                            }`}
+                          >
+                            <span>{g}</span>
+                            {formData.grade === g && (
+                              <CheckCircle2 className="w-4 h-4 text-purple-700" />
+                            )}
+                          </button>
                         ))}
-                      </select>
-                    </div>
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -318,14 +364,14 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-purple-800 via-purple-900 to-indigo-900 hover:from-purple-900 hover:to-indigo-950 text-white font-black text-base rounded-2xl shadow-xl shadow-purple-900/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-gradient-to-r from-purple-800 via-purple-900 to-indigo-900 hover:from-purple-900 hover:to-indigo-950 text-white font-black text-base rounded-2xl shadow-xl shadow-purple-900/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   ) : (
                     <>
                       <Send className="w-5 h-5 fill-white" />
-                      <span>Submit Inquiry for {formData.grade}</span>
+                      <span>Book Free Trial Class for {formData.grade}</span>
                     </>
                   )}
                 </button>
@@ -336,64 +382,33 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
 
               </form>
 
+              {/* Success Notification Modal */}
+              {submittedData && (
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-in fade-in">
+                  <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-purple-100 text-center">
+                    <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle2 className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 mb-2">Class Booked Successfully!</h3>
+                    <p className="text-slate-600 text-sm mb-6 leading-relaxed">
+                      Thank you <strong className="text-purple-950">{submittedData.parentName}</strong>. We have received your booking for <strong className="text-purple-950">{submittedData.grade}</strong>. Our academic team will contact you at <strong className="text-purple-950">{submittedData.phone}</strong>.
+                    </p>
+                    <button
+                      onClick={() => setSubmittedData(null)}
+                      className="w-full py-3 bg-purple-900 text-white rounded-xl font-bold text-sm hover:bg-purple-950 transition-colors"
+                    >
+                      Done
+                    </button>
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
 
         </div>
 
       </div>
-
-      {/* Submission Modal */}
-      {submittedData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white rounded-3xl p-8 max-w-lg w-full border border-purple-200 shadow-2xl text-center relative">
-            <div className="w-16 h-16 rounded-full bg-purple-100 border border-purple-200 flex items-center justify-center text-purple-800 mx-auto mb-4">
-              <CheckCircle2 className="w-8 h-8" />
-            </div>
-
-            <h3 className="text-2xl font-black text-purple-950">Inquiry Received Successfully!</h3>
-            <p className="text-xs text-purple-800 font-mono font-bold mt-1">
-              Reference ID: {submittedData.id}
-            </p>
-
-            <div className="my-6 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left space-y-2 text-xs">
-              <div className="flex justify-between">
-                <span className="text-slate-500">Parent Name:</span>
-                <strong className="text-slate-900">{submittedData.parentName}</strong>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Email:</span>
-                <strong className="text-slate-900">{submittedData.email}</strong>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Contact Number:</span>
-                <strong className="text-slate-900">{submittedData.phone}</strong>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Selected Grade:</span>
-                <strong className="text-purple-800 font-bold">{submittedData.grade}</strong>
-              </div>
-              {submittedData.details && (
-                <div className="pt-2 border-t border-slate-200">
-                  <span className="text-slate-500 block mb-0.5">Details:</span>
-                  <span className="text-slate-800">{submittedData.details}</span>
-                </div>
-              )}
-            </div>
-
-            <p className="text-xs text-slate-700 mb-6">
-              Our lead counselor will contact you at <strong className="text-purple-900">{submittedData.phone}</strong> during <span className="text-purple-800 font-bold">{submittedData.preferredTime}</span>.
-            </p>
-
-            <button
-              onClick={() => setSubmittedData(null)}
-              className="w-full py-3 bg-purple-800 text-white font-extrabold rounded-xl hover:bg-purple-900 transition-colors text-sm shadow-md"
-            >
-              Done / Close Window
-            </button>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
