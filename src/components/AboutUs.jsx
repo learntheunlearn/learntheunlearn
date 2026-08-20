@@ -1,6 +1,7 @@
 // src/components/AboutUs.jsx
 import React from 'react';
 import { Award, Compass, Globe, Heart, Sparkles, Target, Users, BookOpen, Lightbulb } from 'lucide-react';
+import { EduBackground } from './CurriculumPage';
 
 /* ─── Shared inline SVG decorative illustrations (same as Curriculum page) ─── */
 const IllustrationBook = ({ style }) => (
@@ -86,72 +87,11 @@ export default function AboutUs() {
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
 
-      {/* ─── FIXED EDUCATIONAL BACKGROUND LAYER ─── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0, bottom: 0,
-          zIndex: 0,
-          pointerEvents: 'none',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Bright lavender-to-white base gradient */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(135deg, #ede9fe 0%, #f5f3ff 25%, #ffffff 50%, #eef2ff 75%, #faf5ff 100%)',
-        }} />
+      {/* Shared educational background from CurriculumPage */}
+      <EduBackground />
 
-        {/* Top-left vivid purple glow */}
-        <div style={{
-          position: 'absolute', top: '-80px', left: '-80px',
-          width: '480px', height: '480px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(167,139,250,0.38) 0%, rgba(139,92,246,0.12) 55%, transparent 80%)',
-        }} />
-        {/* Top-right indigo glow */}
-        <div style={{
-          position: 'absolute', top: '-40px', right: '-40px',
-          width: '400px', height: '400px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,102,241,0.28) 0%, rgba(139,92,246,0.10) 55%, transparent 80%)',
-        }} />
-        {/* Mid-left accent */}
-        <div style={{
-          position: 'absolute', top: '40%', left: '-60px',
-          width: '280px', height: '280px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(196,181,253,0.30) 0%, transparent 70%)',
-        }} />
-        {/* Bottom-center glow */}
-        <div style={{
-          position: 'absolute', bottom: '-60px', left: '30%',
-          width: '600px', height: '380px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(139,92,246,0.20) 0%, transparent 70%)',
-        }} />
-        {/* Bottom-right accent */}
-        <div style={{
-          position: 'absolute', bottom: '8%', right: '-30px',
-          width: '280px', height: '280px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(196,181,253,0.28) 0%, transparent 70%)',
-        }} />
-
-        {/* ── SVG Illustrations ── */}
-        <IllustrationBook style={{ position: 'absolute', top: '60px', left: '16px', width: '200px' }} />
-        <IllustrationRuler style={{ position: 'absolute', top: '205px', left: '8px', width: '180px', transform: 'rotate(-12deg)' }} />
-        <IllustrationAPlus style={{ position: 'absolute', top: '28px', right: '28px', width: '160px' }} />
-        <IllustrationMathSymbols style={{ position: 'absolute', top: '175px', right: '8px', width: '200px' }} />
-        <IllustrationPencil style={{ position: 'absolute', top: '36%', left: '28px', width: '42px', transform: 'rotate(12deg)' }} />
-        <IllustrationCompass style={{ position: 'absolute', top: '42%', right: '32px', width: '100px' }} />
-        <IllustrationDots style={{ position: 'absolute', bottom: '60px', left: '18px', width: '130px' }} />
-        <IllustrationStar style={{ position: 'absolute', bottom: '185px', left: '78px', width: '60px' }} />
-        <IllustrationMathSymbols style={{ position: 'absolute', bottom: '38px', right: '18px', width: '170px' }} />
-        <IllustrationStar style={{ position: 'absolute', bottom: '198px', right: '76px', width: '52px' }} />
-        <IllustrationDots style={{ position: 'absolute', top: '52%', left: '6%', width: '88px', opacity: 0.65 }} />
-        <IllustrationDots style={{ position: 'absolute', top: '62%', right: '5%', width: '88px', opacity: 0.60 }} />
-        <IllustrationRuler style={{ position: 'absolute', top: '86px', left: '30%', width: '155px', opacity: 0.50, transform: 'rotate(2deg)' }} />
-      </div>
-
-      {/* ─── SCROLLABLE CONTENT LAYER ─── */}
-      <div style={{ position: 'relative', zIndex: 1, paddingTop: '112px', paddingBottom: '96px' }}>
+      {/* Scrollable Content — original card styles preserved */}
+      <div className="pt-28 pb-24" style={{ position: 'relative', zIndex: 1 }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Section Header */}
@@ -168,17 +108,8 @@ export default function AboutUs() {
             </p>
           </div>
 
-          {/* Story Section: Since 2021 */}
-          <div
-            className="rounded-3xl p-8 sm:p-12 mb-10 relative overflow-hidden"
-            style={{
-              background: 'rgba(255,255,255,0.82)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              border: '1.5px solid rgba(167,139,250,0.30)',
-              boxShadow: '0 4px 24px rgba(109,40,217,0.08)',
-            }}
-          >
+          {/* Story Section */}
+          <div className="bg-white rounded-3xl border border-purple-100 p-8 sm:p-12 shadow-sm mb-10 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-80 bg-purple-100/40 rounded-full blur-3xl pointer-events-none" />
             <div className="relative z-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-extrabold mb-4">
@@ -199,18 +130,7 @@ export default function AboutUs() {
 
           {/* Two Highlight Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-
-            {/* Card 1: Personalized Attention */}
-            <div
-              className="rounded-3xl p-8 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300"
-              style={{
-                background: 'rgba(237,233,254,0.80)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1.5px solid rgba(167,139,250,0.35)',
-                boxShadow: '0 4px 20px rgba(109,40,217,0.08)',
-              }}
-            >
+            <div className="bg-white rounded-3xl border border-purple-100 p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-purple-200 transition-all duration-300">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center mb-5">
                   <Users className="w-6 h-6 text-purple-700" />
@@ -222,17 +142,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            {/* Card 2: Philosophy */}
-            <div
-              className="rounded-3xl p-8 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300"
-              style={{
-                background: 'rgba(255,250,237,0.80)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1.5px solid rgba(251,191,36,0.35)',
-                boxShadow: '0 4px 20px rgba(109,40,217,0.08)',
-              }}
-            >
+            <div className="bg-white rounded-3xl border border-purple-100 p-8 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-purple-200 transition-all duration-300">
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-center justify-center mb-5">
                   <Lightbulb className="w-6 h-6 text-amber-600" />
@@ -245,7 +155,7 @@ export default function AboutUs() {
             </div>
           </div>
 
-          {/* Dark card: Core Pedagogy (kept as-is — dark card looks great over the light BG) */}
+          {/* Dark card: Core Pedagogy */}
           <div className="bg-gradient-to-br from-purple-900 via-purple-950 to-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-xl mb-10">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-800/80 border border-purple-600/50 text-purple-200 text-xs font-bold uppercase tracking-wider mb-5">
