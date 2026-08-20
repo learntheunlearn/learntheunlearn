@@ -46,12 +46,12 @@ export default function Footer({ onSelectGradeInquiry }) {
             <ul className="space-y-2 text-slate-400">
               {[1, 2, 3, 4, 5, 6].map((g) => (
                 <li key={g}>
-                  <button
-                    onClick={() => onSelectGradeInquiry(g)}
-                    className="hover:text-purple-300 transition-colors text-left"
+                  <a
+                    href={`#/curriculum/us/grade/${g}`}
+                    className="hover:text-purple-300 transition-colors text-left inline-block"
                   >
                     Grade {g} Math Syllabus
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -63,14 +63,21 @@ export default function Footer({ onSelectGradeInquiry }) {
               Advanced Math (7-12)
             </h4>
             <ul className="space-y-2 text-slate-400">
-              {[7, 8, 9, 10, 11, 12].map((g) => (
-                <li key={g}>
-                  <button
-                    onClick={() => onSelectGradeInquiry(g)}
-                    className="hover:text-purple-300 transition-colors text-left"
+              {[
+                { id: '7', label: 'Grade 7' },
+                { id: '8', label: 'Grade 8' },
+                { id: '9', label: 'Algebra 1' },
+                { id: '10', label: 'Geometry' },
+                { id: '11', label: 'Algebra 2' },
+                { id: '12', label: 'Precalculus' },
+              ].map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#/curriculum/us/grade/${item.id}`}
+                    className="hover:text-purple-300 transition-colors text-left inline-block"
                   >
-                    Grade {g} Math Syllabus
-                  </button>
+                    {item.label} Syllabus
+                  </a>
                 </li>
               ))}
             </ul>

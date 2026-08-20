@@ -1,28 +1,15 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import AboutUs from './components/AboutUs';
-import SyllabusExplorer from './components/SyllabusExplorer';
-import InquiryForm from './components/InquiryForm';
-import Testimonials from './components/Testimonials';
+import HomeSection from './components/HomeSection';
 import Footer from './components/Footer';
 import CurriculumPage from './components/CurriculumPage';
 import SyllabusPage from './components/SyllabusPage';
 import { getEducationalOrgSchema, getCourseSchemas, getFaqSchema } from './utils/seoSchema';
 
 const getRoute = (hash) => {
-  if (!hash || hash === '#/' || hash.startsWith('#hero') || hash === '#') {
-    return { type: 'home', section: 'hero' };
-  }
-  if (hash === '#about-us') {
-    return { type: 'home', section: 'about-us' };
-  }
-  if (hash === '#reviews') {
-    return { type: 'home', section: 'reviews' };
-  }
-  if (hash === '#inquiry-form') {
-    return { type: 'home', section: 'inquiry-form' };
+  if (!hash || hash === '#/' || hash.startsWith('#hero') || hash === '#' || hash === '#welcome') {
+    return { type: 'home', section: 'welcome' };
   }
   if (hash === '#/curriculum/us') {
     return { type: 'curriculum', curriculumType: 'US' };
@@ -41,7 +28,7 @@ const getRoute = (hash) => {
     return { type: 'syllabus', curriculumType: 'UK', grade: ukGradeMatch[1] };
   }
 
-  return { type: 'home', section: 'hero' };
+  return { type: 'home', section: 'welcome' };
 };
 
 export default function App() {
@@ -54,30 +41,10 @@ export default function App() {
     const handleHashChange = () => {
       const newRoute = getRoute(window.location.hash);
       setRoute(newRoute);
-
-      if (newRoute.type === 'home') {
-        setTimeout(() => {
-          const el = document.getElementById(newRoute.section);
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     window.addEventListener('hashchange', handleHashChange);
-    // Init scroll check if initial hash is set
-    if (route.type === 'home' && route.section !== 'hero') {
-      setTimeout(() => {
-        const el = document.getElementById(route.section);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 200);
-    }
-
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
@@ -116,18 +83,6 @@ export default function App() {
   const handleSelectGradeForInquiry = (gradeNum) => {
     setActiveGrade(gradeNum);
     setInquiryGrade(gradeNum);
-
-    const formEl = document.getElementById('inquiry-form');
-    if (formEl) {
-      formEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleExploreSyllabus = () => {
-    const el = document.getElementById('syllabus-explorer');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   return (
@@ -137,34 +92,7 @@ export default function App() {
 
       <main>
         {route.type === 'home' && (
-          <>
-            {/* Hero Section (Home) */}
-            <HeroSection
-              onExploreClick={handleExploreSyllabus}
-              onEnquireClick={() => handleSelectGradeForInquiry(activeGrade)}
-            />
-
-            {/* About Us */}
-            <AboutUs />
-
-            {/* Grade 1 to 12 Syllabus Explorer (Curriculum) */}
-            <SyllabusExplorer
-              activeGrade={activeGrade}
-              setActiveGrade={setActiveGrade}
-              onSelectGradeForInquiry={handleSelectGradeForInquiry}
-            />
-
-            {/* Feedback & Reviews */}
-            <Testimonials
-              onEnquireClick={() => handleSelectGradeForInquiry(activeGrade)}
-            />
-
-            {/* Contact Us - Inquiry Form */}
-            <InquiryForm
-              preselectedGrade={inquiryGrade}
-              onGradeChanged={(g) => setActiveGrade(g)}
-            />
-          </>
+          <HomeSection />
         )}
 
         {route.type === 'curriculum' && (
