@@ -1,6 +1,7 @@
 // src/components/HomeSection.jsx
 import React from 'react';
 import { Sparkles, GraduationCap, Globe, BookOpen, CheckCircle2, ArrowRight, Award, Compass, HeartHandshake } from 'lucide-react';
+import bannerImg from '../assets/banner.png';
 
 export default function HomeSection() {
   const handleCurriculumNav = (type) => {
@@ -13,7 +14,7 @@ export default function HomeSection() {
       {/* 1. Full-Window-Width Edge-to-Edge Banner */}
       <div className="w-full bg-slate-900 overflow-hidden shadow-xl border-b border-purple-100/60">
         <img
-          src="/banner.png"
+          src={bannerImg}
           alt="Learn The Unlearn - Global Online Mathematics Tutoring"
           className="w-full h-auto object-cover block mx-auto max-h-[85vh]"
           loading="eager"
