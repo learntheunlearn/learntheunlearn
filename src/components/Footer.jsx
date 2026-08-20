@@ -24,8 +24,8 @@ export default function Footer({ onSelectGradeInquiry }) {
               </span>
             </div>
 
-            <p className="text-slate-400 leading-relaxed text-xs max-w-sm">
-              Founded by <strong className="text-white">Priyadharshini M.Sc. Math, B.Ed.</strong> Empowering students from Grade 1 to Grade 12 to unlearn memorization and master visual, intuitive mathematics.
+            <p className="text-slate-400 leading-relaxed text-xs max-w-sm font-medium">
+              Transforming the way students learn mathematics through visual, intuitive, and concept-based learning.
             </p>
 
             <div className="inline-flex items-center gap-2 text-amber-400 font-extrabold text-xs">
@@ -86,7 +86,7 @@ export default function Footer({ onSelectGradeInquiry }) {
           {/* Contact */}
           <div>
             <h4 className="font-extrabold text-sm text-white uppercase tracking-wider mb-3">
-              Admissions & Contact
+              Contact
             </h4>
             <ul className="space-y-3 text-slate-400">
               <li className="flex items-center gap-2">
