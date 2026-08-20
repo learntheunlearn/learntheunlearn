@@ -10,7 +10,11 @@ export default function SyllabusPage({ type, gradeNum }) {
   const modules = gradeData ? gradeData.modules : [];
 
   const curriculumLabel = typeKey === 'US' ? 'US Curriculum' : 'UK Curriculum';
-  const gradeLabel = `Grade ${gradeNum}`;
+  let gradeLabel = `Grade ${gradeNum}`;
+  if (gradeNum === 9) gradeLabel = "Algebra 1";
+  else if (gradeNum === 10) gradeLabel = "Geometry";
+  else if (gradeNum === 11) gradeLabel = "Algebra 2";
+  else if (gradeNum === 12) gradeLabel = "Precalculus";
 
   const handleBackClick = (e) => {
     e.preventDefault();

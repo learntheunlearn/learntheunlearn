@@ -36,7 +36,11 @@ export default function CurriculumPage({ type, onSelectGrade }) {
         {/* Grades Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {Array.from({ length: 12 }, (_, i) => i + 1).map((gradeNum) => {
-            const label = `Grade ${gradeNum}`;
+            let label = `Grade ${gradeNum}`;
+            if (gradeNum === 9) label = "Algebra 1";
+            else if (gradeNum === 10) label = "Geometry";
+            else if (gradeNum === 11) label = "Algebra 2";
+            else if (gradeNum === 12) label = "Precalculus";
             return (
               <div 
                 key={gradeNum}
