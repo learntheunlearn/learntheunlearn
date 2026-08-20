@@ -371,7 +371,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                   ) : (
                     <>
                       <Send className="w-5 h-5 fill-white" />
-                      <span>Book Free Trial Class for {formData.grade}</span>
+                      <span>Submit</span>
                     </>
                   )}
                 </button>
