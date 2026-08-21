@@ -1,6 +1,6 @@
 // src/components/InquiryForm.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, CheckCircle2, User, Mail, Phone, GraduationCap, MessageSquare, Sparkles, ShieldCheck, Download, AlertCircle, Award, ChevronDown } from 'lucide-react';
+import { Send, CheckCircle2, User, Mail, Phone, GraduationCap, MessageSquare, Sparkles, ShieldCheck, AlertCircle, Award, ChevronDown } from 'lucide-react';
 
 const GRADE_OPTIONS = [
   'Grade 1',
@@ -37,7 +37,6 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
-  const [inquiryHistory, setInquiryHistory] = useState([]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -60,12 +59,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
     }
   }, [preselectedGrade]);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('LTU_INQUIRIES');
-      if (saved) setInquiryHistory(JSON.parse(saved));
-    } catch (e) {}
-  }, []);
+
 
   const validate = () => {
     const newErrors = {};
@@ -89,49 +83,91 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const submission = {
-        id: `INQ-${Math.floor(100000 + Math.random() * 900000)}`,
-        timestamp: new Date().toLocaleString(),
-        ...formData,
-      };
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-      const updated = [submission, ...inquiryHistory];
-      setInquiryHistory(updated);
-      try {
-        localStorage.setItem('LTU_INQUIRIES', JSON.stringify(updated));
-      } catch (err) {}
+    const submission = {
+      id: `INQ-${Math.floor(100000 + Math.random() * 900000)}`,
+      timestamp: new Date().toLocaleString(),
+      ...formData,
+    };
 
-      setIsSubmitting(false);
-      setSubmittedData(submission);
-      setFormData({
-        parentName: '',
-        email: '',
-        phone: '',
-        grade: 'Grade 4',
-        preferredTime: 'Evening (5 PM - 8 PM)',
-        details: '',
+    // If key is not configured, simulate successful form submission in development
+    if (!accessKey) {
+      console.warn("VITE_WEB3FORMS_ACCESS_KEY is not configured in .env. Simulating successful form submission.");
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmittedData(submission);
+        setFormData({
+          parentName: '',
+          email: '',
+          phone: '',
+          grade: 'Grade 4',
+          preferredTime: 'Evening (5 PM - 8 PM)',
+          details: '',
+        });
+        setErrors({});
+      }, 800);
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New Free Trial Class Booking - Grade ${formData.grade}`,
+          from_name: 'LEARNTHEUNLEARN Website',
+          name: formData.parentName,
+          email: formData.email,
+          message: `
+New Trial Class Booking Request:
+--------------------------------
+Parent/Student Name: ${formData.parentName}
+Email ID: ${formData.email}
+Contact Number: ${formData.phone}
+Student Grade: ${formData.grade}
+Preferred Time Slot: ${formData.preferredTime}
+
+Additional Details / Learning Goals:
+${formData.details || 'None provided'}
+          `,
+        }),
       });
-      setErrors({});
-    }, 800);
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitting(false);
+        setSubmittedData(submission);
+        setFormData({
+          parentName: '',
+          email: '',
+          phone: '',
+          grade: 'Grade 4',
+          preferredTime: 'Evening (5 PM - 8 PM)',
+          details: '',
+        });
+        setErrors({});
+      } else {
+        throw new Error(result.message || 'Something went wrong.');
+      }
+    } catch (err) {
+      console.error("Web3Forms submission error:", err);
+      setErrors({ submit: 'Failed to submit form. Please check your internet connection or try again later.' });
+      setIsSubmitting(false);
+    }
   };
 
-  const exportInquiries = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(inquiryHistory, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", "LTU_Customer_Inquiries.json");
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-    downloadAnchor.remove();
-  };
 
   return (
     <section id="inquiry-form" className="py-20 pb-36 relative bg-gradient-to-b from-purple-50/40 via-white to-slate-50 border-t border-b border-purple-100">
@@ -172,17 +208,6 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
               </div>
             </div>
 
-            {inquiryHistory.length > 0 && (
-              <div className="pt-2">
-                <button
-                  onClick={exportInquiries}
-                  className="text-xs text-purple-800 hover:text-purple-950 font-bold flex items-center gap-1.5 underline"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Download Saved Inquiries ({inquiryHistory.length} logged)</span>
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Right Column: Inquiry Form Card */}
@@ -360,6 +385,13 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                   </div>
                 </div>
 
+                {errors.submit && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5">
+                    <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+                    <p className="text-xs text-red-700 font-semibold">{errors.submit}</p>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <button
                   type="submit"
@@ -389,10 +421,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
                     <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
                       <CheckCircle2 className="w-8 h-8 text-green-600" />
                     </div>
-                    <h3 className="text-2xl font-black text-slate-900 mb-2">Class Booked Successfully!</h3>
-                    <p className="text-slate-600 text-sm mb-6 leading-relaxed">
-                      Thank you <strong className="text-purple-950">{submittedData.parentName}</strong>. We have received your booking for <strong className="text-purple-950">{submittedData.grade}</strong>. Our academic team will contact you at <strong className="text-purple-950">{submittedData.phone}</strong>.
-                    </p>
+                    <h3 className="text-2xl font-black text-slate-900 mb-6">Class Booked Successfully!</h3>
                     <button
                       onClick={() => setSubmittedData(null)}
                       className="w-full py-3 bg-purple-900 text-white rounded-xl font-bold text-sm hover:bg-purple-950 transition-colors"

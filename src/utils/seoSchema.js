@@ -30,7 +30,7 @@ export function getEducationalOrgSchema() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+1-800-555-MATH',
+      telephone: '+91 73584 84736',
       contactType: 'Customer Inquiry & Admissions',
       availableLanguage: ['English', 'Spanish', 'Hindi'],
     },
