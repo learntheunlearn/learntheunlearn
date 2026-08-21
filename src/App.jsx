@@ -7,6 +7,7 @@ import InquiryForm from './components/InquiryForm';
 import Footer from './components/Footer';
 import CurriculumPage, { EduBackground } from './components/CurriculumPage';
 import SyllabusPage from './components/SyllabusPage';
+import Testimonials from './components/Testimonials';
 import { getEducationalOrgSchema, getCourseSchemas, getFaqSchema } from './utils/seoSchema';
 
 const getRoute = (hash) => {
@@ -18,6 +19,9 @@ const getRoute = (hash) => {
   }
   if (hash === '#/contact-us' || hash === '#contact-us' || hash === '#inquiry-form') {
     return { type: 'contact-us' };
+  }
+  if (hash === '#/testimonials' || hash === '#testimonials' || hash === '#reviews') {
+    return { type: 'testimonials' };
   }
   if (hash === '#/curriculum/us') {
     return { type: 'curriculum', curriculumType: 'US' };
@@ -101,42 +105,48 @@ export default function App() {
       {/* Sticky Header */}
       <Navbar />
 
-      <main className="relative z-10">
-        {route.type === 'home' && (
-          <HomeSection />
-        )}
+      <div className="relative z-10">
+        <main>
+          {route.type === 'home' && (
+            <HomeSection />
+          )}
 
-        {route.type === 'about-us' && (
-          <AboutUs />
-        )}
+          {route.type === 'about-us' && (
+            <AboutUs />
+          )}
 
-        {route.type === 'contact-us' && (
-          <div className="pt-20 min-h-screen">
-            <InquiryForm />
-          </div>
-        )}
+          {route.type === 'contact-us' && (
+            <div className="pt-20 min-h-screen">
+              <InquiryForm />
+            </div>
+          )}
 
-        {route.type === 'curriculum' && (
-          <CurriculumPage 
-            type={route.curriculumType}
-            onSelectGrade={(gradeNum) => {
-              window.location.hash = `#/curriculum/${route.curriculumType.toLowerCase()}/grade/${gradeNum}`;
-            }}
-          />
-        )}
+          {route.type === 'curriculum' && (
+            <CurriculumPage 
+              type={route.curriculumType}
+              onSelectGrade={(gradeNum) => {
+                window.location.hash = `#/curriculum/${route.curriculumType.toLowerCase()}/grade/${gradeNum}`;
+              }}
+            />
+          )}
 
-        {route.type === 'syllabus' && (
-          <SyllabusPage 
-            type={route.curriculumType}
-            gradeNum={route.grade}
-          />
-        )}
-      </main>
+          {route.type === 'syllabus' && (
+            <SyllabusPage 
+              type={route.curriculumType}
+              gradeNum={route.grade}
+            />
+          )}
 
-      {/* Footer */}
-      <Footer
-        onSelectGradeInquiry={handleSelectGradeForInquiry}
-      />
+          {route.type === 'testimonials' && (
+            <Testimonials />
+          )}
+        </main>
+
+        {/* Footer */}
+        <Footer
+          onSelectGradeInquiry={handleSelectGradeForInquiry}
+        />
+      </div>
     </div>
   );
 }

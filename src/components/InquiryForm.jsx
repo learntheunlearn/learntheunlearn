@@ -1,6 +1,33 @@
 // src/components/InquiryForm.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, CheckCircle2, User, Mail, Phone, GraduationCap, MessageSquare, Sparkles, ShieldCheck, AlertCircle, Award, ChevronDown } from 'lucide-react';
+import { Send, CheckCircle2, User, Mail, Phone, GraduationCap, MessageSquare, Sparkles, ShieldCheck, AlertCircle, Award, ChevronDown, Globe } from 'lucide-react';
+
+const COUNTRIES = [
+  'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda','Argentina','Armenia','Australia','Austria','Azerbaijan',
+  'Bahamas','Bahrain','Bangladesh','Barbados','Belarus','Belgium','Belize','Benin','Bhutan','Bolivia','Bosnia and Herzegovina','Botswana','Brazil','Brunei','Bulgaria','Burkina Faso','Burundi',
+  'Cabo Verde','Cambodia','Cameroon','Canada','Central African Republic','Chad','Chile','China','Colombia','Comoros','Congo','Costa Rica','Croatia','Cuba','Cyprus','Czech Republic',
+  'Denmark','Djibouti','Dominica','Dominican Republic',
+  'East Timor','Ecuador','Egypt','El Salvador','Equatorial Guinea','Eritrea','Estonia','Eswatini','Ethiopia',
+  'Fiji','Finland','France',
+  'Gabon','Gambia','Georgia','Germany','Ghana','Greece','Grenada','Guatemala','Guinea','Guinea-Bissau','Guyana',
+  'Haiti','Honduras','Hungary',
+  'Iceland','India','Indonesia','Iran','Iraq','Ireland','Israel','Italy','Ivory Coast',
+  'Jamaica','Japan','Jordan',
+  'Kazakhstan','Kenya','Kiribati','Kosovo','Kuwait','Kyrgyzstan',
+  'Laos','Latvia','Lebanon','Lesotho','Liberia','Libya','Liechtenstein','Lithuania','Luxembourg',
+  'Madagascar','Malawi','Malaysia','Maldives','Mali','Malta','Marshall Islands','Mauritania','Mauritius','Mexico','Micronesia','Moldova','Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar',
+  'Namibia','Nauru','Nepal','Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Korea','North Macedonia','Norway',
+  'Oman',
+  'Pakistan','Palau','Palestine','Panama','Papua New Guinea','Paraguay','Peru','Philippines','Poland','Portugal',
+  'Qatar',
+  'Romania','Russia','Rwanda',
+  'Saint Kitts and Nevis','Saint Lucia','Saint Vincent and the Grenadines','Samoa','San Marino','Sao Tome and Principe','Saudi Arabia','Senegal','Serbia','Seychelles','Sierra Leone','Singapore','Slovakia','Slovenia','Solomon Islands','Somalia','South Africa','South Korea','South Sudan','Spain','Sri Lanka','Sudan','Suriname','Sweden','Switzerland','Syria',
+  'Taiwan','Tajikistan','Tanzania','Thailand','Togo','Tonga','Trinidad and Tobago','Tunisia','Turkey','Turkmenistan','Tuvalu',
+  'Uganda','Ukraine','United Arab Emirates','United Kingdom','United States','Uruguay','Uzbekistan',
+  'Vanuatu','Vatican City','Venezuela','Vietnam',
+  'Yemen',
+  'Zambia','Zimbabwe'
+];
 
 const GRADE_OPTIONS = [
   'Grade 1',
@@ -26,6 +53,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
     parentName: '',
     email: '',
     phone: '',
+    country: '',
     grade: 'Grade 4',
     preferredTime: 'Evening (5 PM - 8 PM)',
     details: '',
@@ -107,6 +135,7 @@ export default function InquiryForm({ preselectedGrade, onGradeChanged }) {
           parentName: '',
           email: '',
           phone: '',
+          country: '',
           grade: 'Grade 4',
           preferredTime: 'Evening (5 PM - 8 PM)',
           details: '',
@@ -135,6 +164,7 @@ New Trial Class Booking Request:
 Parent/Student Name: ${formData.parentName}
 Email ID: ${formData.email}
 Contact Number: ${formData.phone}
+Country: ${formData.country || 'Not specified'}
 Student Grade: ${formData.grade}
 Preferred Time Slot: ${formData.preferredTime}
 
@@ -153,6 +183,7 @@ ${formData.details || 'None provided'}
           parentName: '',
           email: '',
           phone: '',
+          country: '',
           grade: 'Grade 4',
           preferredTime: 'Evening (5 PM - 8 PM)',
           details: '',
@@ -170,23 +201,23 @@ ${formData.details || 'None provided'}
 
 
   return (
-    <section id="inquiry-form" className="py-20 pb-36 relative bg-gradient-to-b from-purple-50/40 via-white to-slate-50 border-t border-b border-purple-100">
+    <section id="inquiry-form" className="py-20 pb-36 relative bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-900 text-xs font-extrabold uppercase tracking-wider self-start shadow-sm">
-              <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/30 text-purple-300 text-xs font-extrabold uppercase tracking-wider self-start shadow-lg shadow-purple-950/50 backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-amber-400 fill-amber-400" />
               <span>Admissions & Diagnostic Inquiry</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-black text-purple-950 tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-indigo-200 tracking-tight leading-tight">
               Start Your Child’s Math Transformation Today
             </h2>
 
-            <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+            <p className="text-purple-200/90 text-base sm:text-lg leading-relaxed font-normal">
               Book a complimentary 1-on-1 visual math diagnostic session.
             </p>
 
@@ -297,6 +328,27 @@ ${formData.details || 'None provided'}
                         <AlertCircle className="w-3 h-3" /> {errors.phone}
                       </p>
                     )}
+                  </div>
+                </div>
+
+                {/* Country */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                    Country
+                  </label>
+                  <div className="relative">
+                    <Globe className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <select
+                      value={formData.country}
+                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                      className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-purple-600 appearance-none cursor-pointer"
+                    >
+                      <option value="">Select your country</option>
+                      {COUNTRIES.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
 

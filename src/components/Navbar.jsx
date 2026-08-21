@@ -25,7 +25,7 @@ export default function Navbar() {
     } else if (target === 'inquiry-form') {
       window.location.hash = '#/contact-us';
     } else if (target === 'reviews') {
-      window.location.hash = `#${target}`;
+      window.location.hash = '#/testimonials';
     }
   };
 
@@ -94,7 +94,7 @@ export default function Navbar() {
                           }}
                           className="w-full text-left px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-900 rounded-xl transition-all"
                         >
-                          US Curriculum
+                          USA Curriculum
                         </button>
                         <button
                           onClick={() => {
@@ -177,7 +177,7 @@ export default function Navbar() {
                         }}
                         className="text-left py-2 px-3 text-xs font-bold text-slate-600 hover:text-purple-900 rounded-lg"
                       >
-                        US Curriculum
+                        USA Curriculum
                       </button>
                       <button
                         onClick={() => {

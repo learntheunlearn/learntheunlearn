@@ -9,7 +9,7 @@ export default function SyllabusPage({ type, gradeNum }) {
   const gradeData = curriculum.find((g) => g.id.toString() === (gradeNum || '').toString());
   const modules = gradeData ? gradeData.modules : [];
 
-  const curriculumLabel = typeKey === 'US' ? 'US Curriculum' : 'UK Curriculum';
+  const curriculumLabel = typeKey === 'US' ? 'USA Curriculum' : 'UK Curriculum';
   const gradeLabel = gradeData ? gradeData.label : `Grade ${gradeNum}`;
 
   const handleBackClick = (e) => {
@@ -26,29 +26,47 @@ export default function SyllabusPage({ type, gradeNum }) {
           <a
             href={`#/curriculum/${type.toLowerCase()}`}
             onClick={handleBackClick}
-            className="inline-flex items-center gap-2 text-sm font-bold text-purple-900 hover:text-purple-700 transition-colors group"
+            className="inline-flex items-center gap-2 text-xs font-bold text-purple-300 hover:text-white px-4 py-2 rounded-full bg-purple-950/80 border border-purple-500/30 hover:border-purple-400/60 backdrop-blur-md transition-all shadow-lg shadow-purple-950/50 group"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform text-purple-400" />
             <span>Back to {curriculumLabel}</span>
           </a>
         </div>
 
         {/* Section Header */}
         <div className="max-w-3xl mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-900 text-xs font-extrabold uppercase tracking-wider mb-4 shadow-sm">
-            <BookOpen className="w-4 h-4 text-purple-700" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/30 text-purple-300 text-xs font-extrabold uppercase tracking-wider mb-4 shadow-lg shadow-purple-950/50 backdrop-blur-md">
+            <BookOpen className="w-4 h-4 text-purple-400" />
             <span>Syllabus Overview</span>
           </div>
           
-          <h1 className="text-4xl sm:text-5xl font-black text-purple-950 tracking-tight leading-none">
-            {curriculumLabel} — {gradeLabel}
+          <h1 className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-indigo-200 tracking-tight leading-none flex items-center gap-3 sm:gap-4">
+            <img
+              src={typeKey === 'US' ? 'https://flagcdn.com/w80/us.png' : 'https://flagcdn.com/w80/gb.png'}
+              alt={typeKey === 'US' ? 'USA Flag' : 'UK Flag'}
+              className="w-9 sm:w-12 h-auto rounded shadow-lg object-contain inline-block shrink-0"
+              style={{
+                animation: 'flagWave 1.8s ease-in-out infinite',
+                transformOrigin: 'bottom left',
+              }}
+            />
+            <span>{curriculumLabel} — {gradeLabel}</span>
           </h1>
+
+          <style>{`
+            @keyframes flagWave {
+              0%, 100% { transform: rotate(0deg) scale(1); }
+              25% { transform: rotate(-8deg) scale(1.05); }
+              50% { transform: rotate(4deg) scale(1.02); }
+              75% { transform: rotate(-4deg) scale(1.04); }
+            }
+          `}</style>
         </div>
 
         {/* Detailed Topic Modules Header */}
-        <div className="border-b border-purple-100 pb-4 mb-8 flex items-center justify-between">
-          <h2 className="text-xl sm:text-2xl font-black text-purple-950 flex items-center gap-2.5">
-            <Sparkles className="w-5 h-5 text-amber-500 fill-amber-500" />
+        <div className="border-b border-purple-500/20 pb-4 mb-8 flex items-center justify-between">
+          <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+            <Sparkles className="w-5 h-5 text-amber-400 fill-amber-400" />
             <span>Detailed Topic Modules</span>
           </h2>
         </div>
@@ -59,26 +77,26 @@ export default function SyllabusPage({ type, gradeNum }) {
             {modules.map((mod) => (
               <div
                 key={mod.moduleNumber}
-                className="bg-white rounded-2xl border border-purple-100/70 p-5 shadow-sm hover:shadow-md hover:border-purple-300/80 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between relative overflow-hidden group"
+                className="bg-slate-900/80 rounded-2xl border border-purple-500/20 hover:border-purple-400/60 p-6 backdrop-blur-xl shadow-xl shadow-slate-950/60 hover:shadow-purple-500/20 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group"
               >
-                {/* Subtle top decorative border on hover */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-250 origin-left" />
+                {/* Glowing top decorative border on hover */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-amber-400 opacity-60 group-hover:opacity-100 transition-opacity" />
 
                 <div>
                   <div className="flex items-center justify-between mb-3.5">
                     {/* Module Number badge */}
-                    <span className="inline-block px-2.5 py-0.5 rounded-lg bg-purple-50 border border-purple-100 text-purple-800 text-[10px] font-black uppercase tracking-wider">
+                    <span className="inline-block px-2.5 py-1 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 text-[10px] font-bold uppercase tracking-wider">
                       Module {mod.moduleNumber}
                     </span>
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-base font-extrabold text-slate-900 mb-2 leading-snug group-hover:text-purple-900 transition-colors">
+                  <h3 className="text-lg font-extrabold text-white mb-2 leading-snug group-hover:text-purple-200 transition-colors">
                     {mod.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <p className="text-xs text-slate-300/80 leading-relaxed font-normal">
                     {mod.description}
                   </p>
                 </div>
@@ -86,12 +104,12 @@ export default function SyllabusPage({ type, gradeNum }) {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-3xl border border-purple-100/80 p-12 text-center max-w-xl mx-auto shadow-sm">
-            <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="w-6 h-6 text-purple-700" />
+          <div className="bg-slate-900/80 rounded-3xl border border-purple-500/20 p-12 text-center max-w-xl mx-auto shadow-xl backdrop-blur-xl">
+            <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-6 h-6 text-purple-400" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-1">Modules Coming Soon</h3>
-            <p className="text-xs text-slate-500">The detailed curriculum modules for {gradeLabel} will be updated soon.</p>
+            <h3 className="text-lg font-bold text-white mb-1">Modules Coming Soon</h3>
+            <p className="text-xs text-slate-300/80">The detailed curriculum modules for {gradeLabel} will be updated soon.</p>
           </div>
         )}
 

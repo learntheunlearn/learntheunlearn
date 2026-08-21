@@ -53,10 +53,10 @@ export function EduBackground({ dark = false }) {
 
 export default function CurriculumPage({ type }) {
   const typeKey = type.toUpperCase();
-  const title = typeKey === 'US' ? 'US Curriculum' : 'UK Curriculum';
+  const title = typeKey === 'US' ? 'USA Curriculum' : 'UK Curriculum';
   const subtitle = typeKey === 'US'
-    ? 'Complete mathematics learning from Grade 1 to Grade 12, aligned with U.S. educational standards. Build strong concepts, problem-solving skills, and confidence at every grade level.'
-    : 'Grade 1 through Grade 12 British National Curriculum and Key Stage math pathways, focused on deep mastery.';
+    ? 'Complete mathematics learning from Grade 1 to Grade 12, aligned with USA educational standards. Build strong concepts, problem-solving skills, and confidence at every grade level.'
+    : 'Grade 1 through Grade 8 British National Curriculum and Key Stage math pathways, focused on deep mastery.';
 
   const curriculumItems = CURRICULUM_DATA[typeKey] || [];
 
@@ -66,9 +66,6 @@ export default function CurriculumPage({ type }) {
 
   return (
     <div className="relative min-h-screen">
-
-      {/* Fixed static dark background */}
-      <EduBackground dark={true} />
 
       {/* Scrollable Content */}
       <div className="relative py-28" style={{ zIndex: 1 }}>
@@ -81,9 +78,28 @@ export default function CurriculumPage({ type }) {
               <span>International Standard • Core Roadmaps</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-indigo-200 tracking-tight leading-none">
-              {title}
+            <h1 className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-indigo-200 tracking-tight leading-none flex items-center justify-center gap-3 sm:gap-4">
+              <img
+                src={typeKey === 'US' ? 'https://flagcdn.com/w80/us.png' : 'https://flagcdn.com/w80/gb.png'}
+                alt={typeKey === 'US' ? 'USA Flag' : 'UK Flag'}
+                className="w-10 sm:w-14 h-auto rounded shadow-lg object-contain inline-block shrink-0"
+                style={{
+                  animation: 'flagWave 1.8s ease-in-out infinite',
+                  transformOrigin: 'bottom left',
+                }}
+              />
+              <span>{title}</span>
             </h1>
+
+            {/* Flag wave animation */}
+            <style>{`
+              @keyframes flagWave {
+                0%, 100% { transform: rotate(0deg) scale(1); }
+                25% { transform: rotate(-8deg) scale(1.05); }
+                50% { transform: rotate(4deg) scale(1.02); }
+                75% { transform: rotate(-4deg) scale(1.04); }
+              }
+            `}</style>
 
             <p className="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
               {subtitle}
@@ -103,7 +119,7 @@ export default function CurriculumPage({ type }) {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className="px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-[10px] font-bold uppercase tracking-wider">
-                      {typeKey} Standard
+                      {typeKey === 'US' ? 'USA' : 'UK'} Standard
                     </span>
                   </div>
 
@@ -112,7 +128,7 @@ export default function CurriculumPage({ type }) {
                   </h3>
 
                   <p className="text-xs text-slate-300/80 leading-relaxed mb-6">
-                    Comprehensive modules covering visual reasoning, mental arithmetic strategies, and standard core components.
+                    {item.description || "Comprehensive modules covering visual reasoning, mental arithmetic strategies, and standard core components."}
                   </p>
                 </div>
 

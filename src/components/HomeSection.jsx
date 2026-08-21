@@ -1,15 +1,32 @@
 // src/components/HomeSection.jsx
 import React from 'react';
 import { Sparkles, GraduationCap, Globe, BookOpen, CheckCircle2, ArrowRight, Award, Compass, HeartHandshake } from 'lucide-react';
-import bannerImg from '../assets/banner.png';
+import bannerImg from '../assets/LTU banner.png';
 
 export default function HomeSection() {
   const handleCurriculumNav = (type) => {
     window.location.hash = `#/curriculum/${type}`;
   };
 
+  const missionCommitments = [
+    "Welcoming students from every country",
+    "Connecting global learners with capable Indian teachers",
+    "Making mathematics simple, clear and engaging",
+    "Adapting lessons to different grades and curricula",
+    "Accommodating students across different time zones",
+    "Understanding each student’s individual learning needs",
+    "Building strong mathematical foundations",
+    "Encouraging curiosity and independent thinking",
+    "Providing patient, step-by-step guidance",
+    "Creating personalized worksheets and practice materials",
+    "Supporting homework, assignments and examination preparation",
+    "Monitoring student progress consistently",
+    "Keeping parents informed through constructive feedback",
+    "Maintaining a safe, respectful and supportive online environment"
+  ];
+
   return (
-    <div className="pt-[72px] pb-24 bg-gradient-to-b from-purple-50/30 via-slate-50 to-white min-h-screen">
+    <div className="pt-[72px] pb-24 bg-transparent min-h-screen">
       
       {/* 1. Full-Window-Width Edge-to-Edge Banner */}
       <div className="w-full bg-slate-900 overflow-hidden shadow-xl border-b border-purple-100/60">
@@ -21,12 +38,10 @@ export default function HomeSection() {
         />
       </div>
 
-      {/* 2. Elevated Welcome Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24 space-y-10">
         
-        {/* Welcome Card Container */}
-        <section id="welcome" className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[36px] border border-purple-100/80 p-8 sm:p-14 lg:p-20 shadow-xl shadow-purple-900/5">
-          
+        {/* Box 1: Welcome Container */}
+        <section id="welcome" className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[36px] border border-purple-100/80 p-8 sm:p-14 lg:p-16 shadow-xl shadow-purple-900/5">
           {/* Subtle decorative background gradients */}
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-200/40 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -45,7 +60,7 @@ export default function HomeSection() {
             </h1>
 
             {/* Welcome Body Description */}
-            <div className="text-slate-700 text-lg sm:text-2xl leading-relaxed font-medium space-y-6 text-center sm:text-center">
+            <div className="text-slate-700 text-lg sm:text-2xl leading-relaxed font-medium space-y-6 text-center">
               <p>
                 Welcome to <span className="text-purple-900 font-extrabold underline decoration-purple-300 underline-offset-4">Learn The Unlearn</span>, an online mathematics tutoring platform connecting students worldwide with skilled and dedicated Indian teachers.
               </p>
@@ -54,8 +69,15 @@ export default function HomeSection() {
               </p>
             </div>
 
+          </div>
+        </section>
+
+        {/* Box 2: 4 Core Pillars & Curriculum Navigation */}
+        <section className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[36px] border border-purple-100/80 p-8 sm:p-14 lg:p-16 shadow-xl shadow-purple-900/5">
+          <div className="relative z-10 max-w-6xl mx-auto text-center">
+            
             {/* 4 Core Pillars Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14 pt-12 border-t border-purple-100/70 text-left">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
               
               <div className="p-6 rounded-2xl bg-slate-50 border border-purple-50 hover:border-purple-200 hover:bg-purple-50/40 transition-all duration-300 group">
                 <div className="w-12 h-12 rounded-xl bg-purple-100 border border-purple-200/80 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -78,7 +100,7 @@ export default function HomeSection() {
                   <Compass className="w-6 h-6 text-purple-800" />
                 </div>
                 <h3 className="font-extrabold text-slate-900 text-base mb-1.5">Custom Curriculum</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">Tailored specifically to US, UK, and International mathematical standards.</p>
+                <p className="text-xs text-slate-500 leading-relaxed">Tailored specifically to USA, UK, and International mathematical standards.</p>
               </div>
 
               <div className="p-6 rounded-2xl bg-slate-50 border border-purple-50 hover:border-purple-200 hover:bg-purple-50/40 transition-all duration-300 group">
@@ -97,7 +119,7 @@ export default function HomeSection() {
                 onClick={() => handleCurriculumNav('us')}
                 className="px-8 py-4 rounded-2xl bg-purple-900 hover:bg-purple-950 text-white font-extrabold text-sm shadow-lg shadow-purple-950/20 hover:-translate-y-0.5 transition-all flex items-center gap-2 group cursor-pointer"
               >
-                <span>Explore US Curriculum</span>
+                <span>Explore USA Curriculum</span>
                 <ArrowRight className="w-4 h-4 text-purple-300 group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -108,6 +130,72 @@ export default function HomeSection() {
                 <span>Explore UK Curriculum</span>
                 <ArrowRight className="w-4 h-4 text-purple-700 group-hover:translate-x-1 transition-transform" />
               </button>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Box 3: Our Vision Container */}
+        <section id="vision" className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[36px] border border-purple-100/80 p-8 sm:p-12 lg:p-16 shadow-xl shadow-purple-900/5">
+          <div className="relative z-10 max-w-5xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-2xl bg-purple-100 border border-purple-200 flex items-center justify-center">
+                <Compass className="w-5 h-5 text-purple-800" />
+              </div>
+              <div>
+                <span className="text-xs font-black uppercase tracking-wider text-purple-700">Guiding Principles</span>
+                <h2 className="text-3xl sm:text-4xl font-black text-purple-950 tracking-tight">Our Vision</h2>
+              </div>
+            </div>
+
+            <div className="space-y-4 text-slate-700 text-base sm:text-lg leading-relaxed font-normal">
+              <p className="text-lg sm:text-xl text-purple-950 font-bold leading-relaxed border-l-4 border-purple-600 pl-4 py-1">
+                To become a trusted global online education platform that connects students everywhere with quality teaching and meaningful learning opportunities.
+              </p>
+              <p>
+                We envision a world where geographical location does not limit a student’s access to excellent education. Every learner should have the opportunity to receive personalized guidance, build confidence and discover their full potential.
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base">
+                While mathematics is our present focus, our long-term vision is to expand <strong className="text-purple-900 font-bold">Learn The Unlearn</strong> into a comprehensive global learning platform covering additional subjects, skills and educational streams.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Box 4: Our Mission Container */}
+        <section id="mission" className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[36px] border border-purple-100/80 p-8 sm:p-12 lg:p-16 shadow-xl shadow-purple-900/5">
+          <div className="relative z-10 max-w-5xl mx-auto">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center">
+                <Award className="w-5 h-5 text-amber-700" />
+              </div>
+              <div>
+                <span className="text-xs font-black uppercase tracking-wider text-amber-700">Core Purpose</span>
+                <h2 className="text-3xl sm:text-4xl font-black text-purple-950 tracking-tight">Our Mission</h2>
+              </div>
+            </div>
+
+            <p className="text-lg sm:text-xl text-purple-950 font-bold leading-relaxed mb-8 border-l-4 border-amber-500 pl-4 py-1">
+              Our mission is to provide accessible, personalized and high-quality online mathematics education to students across the world.
+            </p>
+
+            <h3 className="text-sm font-black uppercase tracking-wider text-purple-900 mb-5">We are committed to:</h3>
+
+            {/* Commitments Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-10">
+              {missionCommitments.map((item, idx) => (
+                <div key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-purple-50/50 border border-purple-100/70 hover:bg-purple-100/50 transition-colors">
+                  <CheckCircle2 className="w-4 h-4 text-purple-700 shrink-0 mt-0.5" />
+                  <span className="text-xs sm:text-sm font-semibold text-slate-800">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Concluding Mission Highlight Box */}
+            <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-purple-900 via-purple-950 to-indigo-950 text-white shadow-lg border border-purple-800/40">
+              <p className="text-sm sm:text-base font-bold leading-relaxed text-center sm:text-left">
+                At <span className="text-amber-300 font-extrabold">Learn The Unlearn</span>, we aim to do more than improve academic marks. We help students develop confidence, discipline, problem-solving ability and a positive attitude towards learning.
+              </p>
             </div>
 
           </div>
