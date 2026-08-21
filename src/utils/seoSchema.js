@@ -25,8 +25,8 @@ export function getEducationalOrgSchema() {
     ],
     address: {
       '@type': 'PostalAddress',
-      addressCountry: 'Worldwide',
-      addressLocality: 'Online Global Campus',
+      addressCountry: 'India',
+      addressLocality: 'India',
     },
     contactPoint: {
       '@type': 'ContactPoint',

@@ -99,7 +99,7 @@ export default function Footer({ onSelectGradeInquiry }) {
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span>Online Global Virtual Campus (Live Interactive)</span>
+                <span>India</span>
               </li>
             </ul>
 
