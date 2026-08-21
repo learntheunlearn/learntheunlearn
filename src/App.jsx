@@ -5,7 +5,7 @@ import HomeSection from './components/HomeSection';
 import AboutUs from './components/AboutUs';
 import InquiryForm from './components/InquiryForm';
 import Footer from './components/Footer';
-import CurriculumPage from './components/CurriculumPage';
+import CurriculumPage, { EduBackground } from './components/CurriculumPage';
 import SyllabusPage from './components/SyllabusPage';
 import { getEducationalOrgSchema, getCourseSchemas, getFaqSchema } from './utils/seoSchema';
 
@@ -94,11 +94,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-purple-600 selection:text-white font-['Plus_Jakarta_Sans',sans-serif]">
+    <div className="min-h-screen bg-slate-950 text-slate-900 selection:bg-purple-600 selection:text-white font-['Plus_Jakarta_Sans',sans-serif] relative">
+      {/* Global static dark background */}
+      <EduBackground dark={true} />
+
       {/* Sticky Header */}
       <Navbar />
 
-      <main>
+      <main className="relative z-10">
         {route.type === 'home' && (
           <HomeSection />
         )}
@@ -108,7 +111,7 @@ export default function App() {
         )}
 
         {route.type === 'contact-us' && (
-          <div className="pt-20 min-h-screen bg-slate-50">
+          <div className="pt-20 min-h-screen">
             <InquiryForm />
           </div>
         )}

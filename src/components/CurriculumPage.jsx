@@ -105,7 +105,6 @@ export default function CurriculumPage({ type }) {
                     <span className="px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-[10px] font-bold uppercase tracking-wider">
                       {typeKey} Standard
                     </span>
-                    <Sparkles className="w-4 h-4 text-amber-400/70 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
 
                   <h3 className="text-2xl font-black text-white group-hover:text-purple-200 transition-colors mb-2">
